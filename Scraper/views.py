@@ -10,9 +10,9 @@ def Scraper(request):
 
     if request.method == 'POST':
 
-        url = request.POST.get('site',"")
+        url = request.POST.get('site','')
 
-        response = requests.get(url)
+        response = requests.get("http://"+url)
         soup = BeautifulSoup(response.text, 'html.parser')
 
 
@@ -29,12 +29,9 @@ def Scraper(request):
 
         data = Link.objects.all()
 
-    context = {
-        'data': data
-    }
 
 
-    return render(request, 'scraper/result.html', context)
+    return render(request, 'scraper/result.html', context={'data': data})
 
 
 def delete(request):
