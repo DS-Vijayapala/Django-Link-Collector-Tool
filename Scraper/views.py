@@ -6,15 +6,15 @@ from django.http import HttpResponseRedirect
 
 # Create your views here.
 
+
 def Scraper(request):
 
     if request.method == 'POST':
 
-        url = request.POST.get('site','')
+        url = request.POST.get('site', '')
 
-        response = requests.get("http://"+url)
+        response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
-
 
         for link in soup.find_all('a'):
 
@@ -28,8 +28,6 @@ def Scraper(request):
     else:
 
         data = Link.objects.all()
-
-
 
     return render(request, 'scraper/result.html', context={'data': data})
 
